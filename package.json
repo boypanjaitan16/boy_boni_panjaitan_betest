@@ -1,0 +1,26 @@
+{
+  "name": "Assesment",
+  "version": "1.0.0",
+  "description": "Mitrais Assessment",
+  "author": "Boy Boni Panjaitan",
+  "keywords": [],
+  "license": "ISC",
+  "main": "index.js",
+  "scripts": {
+    "start": "./bin/app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.12.2",
+    "http-errors": "^1.8.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.9",
+    "pino": "^6.13.3",
+    "pino-http": "^5.8.0",
+    "pino-pretty": "^7.0.1"
+  }
+}
