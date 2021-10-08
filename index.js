@@ -56,8 +56,8 @@ module.exports = function main (options, cb) {
   app.use(express.urlencoded({ extended: false }))
   app.use(cors({
     origin  : [
-      'http://127.0.0.1:5000', 'http://127.0.0.1:8000', 'http://127.0.0.1:3000', 
-      'https://boy-activity-tracker.netlify.app', 'https://tracker.boypanjaitan.com'],
+      'http://127.0.0.1:5000', 'http://127.0.0.1:8000', 'http://127.0.0.1:3000'
+    ],
     credentials : true
   }))
   app.use(pinoHttp({ logger }))
@@ -85,7 +85,7 @@ module.exports = function main (options, cb) {
   })
 
   // Start server
-  server = app.listen(opts.port, opts.host, function (err) {
+  server = app.listen(process.env.PORT || 8000, opts.host, function (err) {
     if (err) {
       return ready(err, app, server)
     }
@@ -97,7 +97,7 @@ module.exports = function main (options, cb) {
 
     serverStarted = true
     const addr = server.address()
-    logger.info(`Started at ${opts.host || addr.host || 'localhost'}:${addr.port}`)
+    logger.info(`Started at ${opts.host || addr.host || 'localhost'}:${process.env.PORT || 8000}`)
     ready(err, app, server)
   })
 }
