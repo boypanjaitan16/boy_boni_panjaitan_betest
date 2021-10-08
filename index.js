@@ -85,7 +85,7 @@ module.exports = function main (options, cb) {
   })
 
   // Start server
-  server = app.listen(process.env.PORT || 8000, opts.host, function (err) {
+  server = app.listen(opts.port, opts.host, function (err) {
     if (err) {
       return ready(err, app, server)
     }
@@ -97,7 +97,7 @@ module.exports = function main (options, cb) {
 
     serverStarted = true
     const addr = server.address()
-    logger.info(`Started at ${opts.host || addr.host || 'localhost'}:${process.env.PORT || 8000}`)
+    logger.info(`Started at ${opts.host || addr.host || 'localhost'}:${opts.port}`)
     ready(err, app, server)
   })
 }
