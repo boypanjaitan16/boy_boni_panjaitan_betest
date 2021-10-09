@@ -135,6 +135,36 @@ exports.getUser = async (req, res) => {
     }
 }
 
+exports.getUserByIdentityNumber = async (req, res) => {
+    try{
+        const user  = await User.findOne({identityNumber : req.params.id}).select({password:0});
+
+        if(!user) throw new Error('User not found')
+
+        return responseSuccess(res, user)
+    }
+    catch(e){
+        return responseFailed(res, [
+            {msg : e.message}
+        ])
+    }
+}
+
+exports.getUserByAccountNumber = async (req, res) => {
+    try{
+        const user  = await User.findOne({accountNumber : req.params.id}).select({password:0});
+
+        if(!user) throw new Error('User not found')
+
+        return responseSuccess(res, user)
+    }
+    catch(e){
+        return responseFailed(res, [
+            {msg : e.message}
+        ])
+    }
+}
+
 exports.deleteUser = async (req, res) => {
     try{
         if(req.params.id === req.user.userId){

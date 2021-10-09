@@ -28,5 +28,7 @@ module.exports = function (app, opts) {
   app.post('/users', userController.addUserValidation, userController.addUser)
   app.put('/users/:id', userController.updateUserValidation, userController.updateUser)
   app.get('/users/:id', userController.getUser)
+  app.get('/users/identity-number/:id', userController.getUserByIdentityNumber)
+  app.get('/users/account-number/:id', userController.getUserByAccountNumber)
   app.delete('/users/:id', userController.deleteUser)
 }

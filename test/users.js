@@ -7,6 +7,8 @@ const request   = require('supertest')
 
 let token;
 let createdUserId;
+let createdAccountNumber;
+let createdIdentityNumber;
 let currentUserId;
 
 describe('Users Endpoint', () => {
@@ -84,6 +86,8 @@ describe('Users Endpoint', () => {
                 expect(body).to.not.contain.property('password')
 
                 createdUserId = body._id;
+                createdAccountNumber    = body.accountNumber;
+                createdIdentityNumber   = body.identityNumber;
                 done()
             })
         })
@@ -262,6 +266,72 @@ describe('Users Endpoint', () => {
         it('Failed to get detail of user due to not-existing user', (done) => {
             request(app)
             .get(`/users/12345678`)
+            .set({ Authorization : `Bearer ${token}`})
+            .end((error, {status, body}) => {
+                expect(status).equal(403)
+                expect(body).to.be.a('object')
+                expect(body).to.contain.property('code')
+                expect(body).to.contain.property('message')
+
+                done()
+            })
+        })
+    })
+
+    describe('GET /users/identity-number/:id', () => {
+        it('Success get detail of user', (done) => {
+            request(app)
+            .get(`/users/identity-number/${createdIdentityNumber}`)
+            .set({ Authorization : `Bearer ${token}`})
+            .end((error, {status, body}) => {
+                expect(status).equal(200)
+                expect(body).to.be.a('object')
+                expect(body).to.contain.property('userName')
+                expect(body).to.contain.property('emailAddress')
+                expect(body).to.contain.property('identityNumber')
+                expect(body).to.contain.property('accountNumber')
+                expect(body).to.not.contain.property('password')
+
+                done()
+            })
+        })
+
+        it('Failed to get detail of user due to not-existing user', (done) => {
+            request(app)
+            .get(`/users/identity-number/xxxxxx`)
+            .set({ Authorization : `Bearer ${token}`})
+            .end((error, {status, body}) => {
+                expect(status).equal(403)
+                expect(body).to.be.a('object')
+                expect(body).to.contain.property('code')
+                expect(body).to.contain.property('message')
+
+                done()
+            })
+        })
+    })
+
+    describe('GET /users/account-number/:id', () => {
+        it('Success get detail of user', (done) => {
+            request(app)
+            .get(`/users/account-number/${createdAccountNumber}`)
+            .set({ Authorization : `Bearer ${token}`})
+            .end((error, {status, body}) => {
+                expect(status).equal(200)
+                expect(body).to.be.a('object')
+                expect(body).to.contain.property('userName')
+                expect(body).to.contain.property('emailAddress')
+                expect(body).to.contain.property('identityNumber')
+                expect(body).to.contain.property('accountNumber')
+                expect(body).to.not.contain.property('password')
+
+                done()
+            })
+        })
+
+        it('Failed to get detail of user due to not-existing user', (done) => {
+            request(app)
+            .get(`/users/account-number/xxxxxx`)
             .set({ Authorization : `Bearer ${token}`})
             .end((error, {status, body}) => {
                 expect(status).equal(403)
