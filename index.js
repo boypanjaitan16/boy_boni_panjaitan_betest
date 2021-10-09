@@ -5,10 +5,9 @@ require('dotenv').config()
 const express = require('express')
 const httpErrors = require('http-errors')
 const pino = require('pino')
-const pinoHttp = require('pino-http')
 const cors  = require('cors');
 
-require('./db')
+// require('./db').connect();
 
 module.exports = function main (options, cb) {
   // Set default options
@@ -47,10 +46,6 @@ module.exports = function main (options, cb) {
 
   // Create the express app
   const app = express()
-
-
-  // Common middleware
-  // app.use(/* ... */)
   
   app.use(express.json())
   app.use(express.urlencoded({ extended: false }))
@@ -60,7 +55,7 @@ module.exports = function main (options, cb) {
     ],
     credentials : true
   }))
-  app.use(pinoHttp({ logger }))
+  // app.use(pinoHttp({ logger }))
       
   // Register routes
   // @NOTE: require here because this ensures that even syntax errors
@@ -83,6 +78,8 @@ module.exports = function main (options, cb) {
       message: err.message
     })
   })
+
+  if(opts.testing) return app;
 
   // Start server
   server = app.listen(opts.port, opts.host, function (err) {

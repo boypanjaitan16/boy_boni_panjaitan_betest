@@ -17,9 +17,8 @@ exports.addUser = async (req, res) => {
 
     const {emailAddress, userName, accountNumber, identityNumber}    = req.body
 
-    const userModel         = new User({ emailAddress, userName, accountNumber, identityNumber }) 
-
-    const user  = await userModel.save();
+    const userModel = new User({ emailAddress, userName, accountNumber, identityNumber }) 
+    const user      = await userModel.save();
 
     return responseSuccess(res, user);
 
@@ -124,18 +123,35 @@ exports.updateUserValidation = [
 ]
 
 exports.getUser = async (req, res) => {
-    const user  = await User.findById(req.params.id).select({password:0});
+    try{
+        const user  = await User.findById(req.params.id).select({password:0});
 
-    return responseSuccess(res, user)
+        return responseSuccess(res, user)
+    }
+    catch(e){
+        return responseFailed(res, [
+            {msg : e.message}
+        ])
+    }
 }
 
 exports.deleteUser = async (req, res) => {
-    if(req.params.id === req.user.userId){
+    try{
+        if(req.params.id === req.user.userId){
+            return responseFailed(res, [
+                {msg: 'You can not remove your own account'}
+            ])
+        }
+        const user  = await User.remove({_id : req.params.id});
+
+        return responseSuccess(res, user)   
+    }
+    catch(e){
         return responseFailed(res, [
-            {msg: 'You can not remove your own account'}
+            {
+                msg: e.message
+            }
         ])
     }
-    const user  = await User.remove({_id : req.params.id});
 
-    return responseSuccess(res, user)
 }

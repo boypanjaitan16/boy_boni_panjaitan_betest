@@ -4,7 +4,7 @@ const {responseSuccess, responseFailed} = require('../helpers/BasicHelper')
 const User = require('../models/User')
 
 exports.detail = async (req, res) => {
-    const user  = await User.findById(req.user.userId)
+    const user  = await User.findById(req.user.userId).select({password:0})
 
     if(!user){
         responseFailed(res, 'User not found')
