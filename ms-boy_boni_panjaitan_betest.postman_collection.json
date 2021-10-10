@@ -1,0 +1,395 @@
+{
+	"info": {
+		"_postman_id": "af643dac-7e05-4427-875d-b6ed5d6335f2",
+		"name": "ms-boy_boni_panjaitan_betest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "emailAddress",
+									"value": "admin@website.com",
+									"type": "text"
+								},
+								{
+									"key": "userName",
+									"value": "Admin",
+									"type": "text"
+								},
+								{
+									"key": "accountNumber",
+									"value": "00000000",
+									"type": "text"
+								},
+								{
+									"key": "identityNumber",
+									"value": "00000000",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345678",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "12345678",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign-in",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "emailAddress",
+									"value": "admin@website.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345678",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/sign-in",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"sign-in"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profile",
+			"item": [
+				{
+					"name": "Get Profile Information",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTVmZmFmZWYxODI2OGRjNGQyYTg4MDUiLCJpYXQiOjE2MzM2ODA5NTQsImV4cCI6MTYzMzY4Mjc1NH0.zuZO2FJ4gpHnk-pLMsmbXTSZQ7RyQQTEOQB_CBhWjc8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Profile",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "userName",
+									"value": "Jancukkk",
+									"type": "text"
+								},
+								{
+									"key": "emailAddress",
+									"value": "boypanjaitan21@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "accountNumber",
+									"value": "1234567899",
+									"type": "text"
+								},
+								{
+									"key": "identityNumber",
+									"value": "1234567899",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "emailAddress",
+									"value": "boypanjaitan16@yahoo.com",
+									"type": "text"
+								},
+								{
+									"key": "userName",
+									"value": "Boy Panjaitan",
+									"type": "text"
+								},
+								{
+									"key": "accountNumber",
+									"value": "12345678",
+									"type": "text"
+								},
+								{
+									"key": "identityNumber",
+									"value": "12345678",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/616058584e69fd234723b8e3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"616058584e69fd234723b8e3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "emailAddress",
+									"value": "boypanjaitan16@yahoo.com",
+									"type": "text"
+								},
+								{
+									"key": "userName",
+									"value": "Edit Boy Panjaitan",
+									"type": "text"
+								},
+								{
+									"key": "accountNumber",
+									"value": "123456789",
+									"type": "text"
+								},
+								{
+									"key": "identityNumber",
+									"value": "123456789",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/users/6160547c7af1b3ae7dcbdacf",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"6160547c7af1b3ae7dcbdacf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/615ffafef18268dc4d2a8805",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"615ffafef18268dc4d2a8805"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by identityNumber",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/identity-number/123456789",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"identity-number",
+								"123456789"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by accountNumber",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/account-number/123456789",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"account-number",
+								"123456789"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "127.0.0.1:8000"
+		},
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTVmZmFmZWYxODI2OGRjNGQyYTg4MDUiLCJpYXQiOjE2MzM2ODM1MTMsImV4cCI6MTYzMzY4NTMxM30.6BYwj43rFI6NLeLNKIKqouOL7F9z0us3tGqQlrAockU"
+		}
+	]
+}

@@ -4,7 +4,8 @@ const authController      = require('./src/controllers/AuthController')
 const profileController   = require('./src/controllers/ProfileController')
 const userController      = require('./src/controllers/UserController')
 
-const authMiddleware  = require('./src/middlewares/AuthMiddleware')
+const authMiddleware    = require('./src/middlewares/AuthMiddleware')
+const cacheMiddleware   = require('./src/middlewares/CacheMiddleware')
 
 module.exports = function (app, opts) {
   // Setup routes, middleware, and handlers
@@ -24,11 +25,11 @@ module.exports = function (app, opts) {
   app.post('/profile', profileController.updateValidation, profileController.update)
 
   app.use('/users', authMiddleware.verifyToken)
-  app.get('/users', userController.getAllUsers)
+  app.get('/users', cacheMiddleware.cacheAllUsers, userController.getAllUsers)
   app.post('/users', userController.addUserValidation, userController.addUser)
   app.put('/users/:id', userController.updateUserValidation, userController.updateUser)
-  app.get('/users/:id', userController.getUser)
-  app.get('/users/identity-number/:id', userController.getUserByIdentityNumber)
-  app.get('/users/account-number/:id', userController.getUserByAccountNumber)
+  app.get('/users/:id', cacheMiddleware.cacheUser, userController.getUser)
+  app.get('/users/identity-number/:id', cacheMiddleware.cacheUser, userController.getUserByIdentityNumber)
+  app.get('/users/account-number/:id', cacheMiddleware.cacheUser, userController.getUserByAccountNumber)
   app.delete('/users/:id', userController.deleteUser)
 }

@@ -1,7 +1,29 @@
 version: '3.8'
 services:
+  # zookeeper:
+  #   image: wurstmeister/zookeeper:latest
+  #   container_name: "ms-zookeper"
+  #   ports:
+  #     - "2181:2181"
+  # kafka:
+  #   image: wurstmeister/kafka:2.11-1.1.1
+  #   container_name: "ms-kafka"
+  #   ports:
+  #     - "9092:9092"
+  #   links:
+  #     - zookeeper
+  #   environment:
+  #     KAFKA_ADVERTISED_HOST_NAME: "172.29.224.1"
+  #     KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+  #     KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+  #     KAFKA_DELETE_TOPIC_ENABLE: 'true'
+  #     KAFKA_CREATE_TOPICS: "topic-test:1:1"
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+
   mongo:
     image: mongo:4.1.8-xenial
+    container_name: ms-backend
     ports:
       - "27018:27017"
     volumes:
@@ -10,3 +32,20 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: mongo
       MONGO_INITDB_DATABASE: btpn
+
+  redis:
+    image: redis:6.2.6-alpine
+    container_name: ms-redis
+    ports:
+      - "6379:6379"
+
+  # app:
+  #   build:
+  #     context: ./
+  #   container_name: ms-app
+  #   ports:
+  #     - "8000:8000"
+  #   volumes:
+  #     - ./:/var/www
+  #   depends_on:
+  #     - mongo

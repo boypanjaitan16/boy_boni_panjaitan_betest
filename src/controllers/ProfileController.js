@@ -3,13 +3,19 @@ const {responseSuccess, responseFailed} = require('../helpers/BasicHelper')
 
 const User = require('../models/User')
 
+const redis     = require('redis')
+const client    = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST)
+
 exports.detail = async (req, res) => {
+    if(req.cache) return responseSuccess(res, JSON.parse(req.cache))
+
     const user  = await User.findById(req.user.userId).select({password:0})
 
     if(!user){
-        responseFailed(res, 'User not found')
+        return responseFailed(res, 'User not found')
     }
 
+    client.setex(`user_${req.user.userId}`, 3600, JSON.stringify(user))
     return responseSuccess(res, user)
 }
 

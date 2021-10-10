@@ -5,9 +5,7 @@ require('dotenv').config()
 const express = require('express')
 const httpErrors = require('http-errors')
 const pino = require('pino')
-const cors  = require('cors');
-
-// require('./db').connect();
+const cors  = require('cors')
 
 module.exports = function main (options, cb) {
   // Set default options

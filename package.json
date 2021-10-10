@@ -21,7 +21,8 @@
     "mongoose": "^6.0.9",
     "pino": "^6.13.3",
     "pino-http": "^5.8.0",
-    "pino-pretty": "^7.0.1"
+    "pino-pretty": "^7.0.1",
+    "redis": "^3.1.2"
   },
   "devDependencies": {
     "chai": "^4.3.4",

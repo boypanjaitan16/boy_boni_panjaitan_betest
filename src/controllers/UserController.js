@@ -2,9 +2,16 @@ const { responseSuccess, responseFailed } = require('../helpers/BasicHelper')
 const {validationResult, body} = require('express-validator')
 const User  = require('../models/User')
 
+const redis     = require('redis')
+const client    = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST)
+
 exports.getAllUsers = async (req, res) => {
+    if(req.cache){
+        return responseSuccess(res, JSON.parse(req.cache))
+    }
     const users     = await User.find({}, {emailAddress: 1, userName:1, accountNumber:1, identityNumber:1})
-    
+    client.setex('all_users', 3600, JSON.stringify(users))
+
     return responseSuccess(res, users)
 }
 
@@ -124,7 +131,10 @@ exports.updateUserValidation = [
 
 exports.getUser = async (req, res) => {
     try{
+        if(req.cache) return responseSuccess(res, JSON.parse(req.cache))
+
         const user  = await User.findById(req.params.id).select({password:0});
+        client.setex(`user_${req.params.id}`, 3600, JSON.stringify(user))
 
         return responseSuccess(res, user)
     }
@@ -137,9 +147,13 @@ exports.getUser = async (req, res) => {
 
 exports.getUserByIdentityNumber = async (req, res) => {
     try{
+        if(req.cache) return responseSuccess(res, JSON.parse(req.cache))
+
         const user  = await User.findOne({identityNumber : req.params.id}).select({password:0});
 
         if(!user) throw new Error('User not found')
+
+        client.setex(`user_${req.params.id}`, 3600, JSON.stringify(user))
 
         return responseSuccess(res, user)
     }
@@ -152,9 +166,13 @@ exports.getUserByIdentityNumber = async (req, res) => {
 
 exports.getUserByAccountNumber = async (req, res) => {
     try{
+        if(req.cache) return responseSuccess(res, JSON.parse(req.cache))
+        
         const user  = await User.findOne({accountNumber : req.params.id}).select({password:0});
 
         if(!user) throw new Error('User not found')
+
+        client.setex(`user_${req.params.id}`, 3600, JSON.stringify(user))
 
         return responseSuccess(res, user)
     }
