@@ -4,7 +4,10 @@ const {responseSuccess, responseFailed} = require('../helpers/BasicHelper')
 const User = require('../models/User')
 
 const redis     = require('redis')
-const client    = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST)
+const client    = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST, {
+    password: process.env.REDIS_PASSWORD,
+    db  : process.env.REDIS_DB
+})
 
 exports.detail = async (req, res) => {
     if(req.cache) return responseSuccess(res, JSON.parse(req.cache))

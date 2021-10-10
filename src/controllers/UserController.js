@@ -3,7 +3,10 @@ const {validationResult, body} = require('express-validator')
 const User  = require('../models/User')
 
 const redis     = require('redis')
-const client    = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST)
+const client    = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST, {
+    password: process.env.REDIS_PASSWORD,
+    db  : process.env.REDIS_DB
+})
 
 exports.getAllUsers = async (req, res) => {
     if(req.cache){
@@ -167,7 +170,7 @@ exports.getUserByIdentityNumber = async (req, res) => {
 exports.getUserByAccountNumber = async (req, res) => {
     try{
         if(req.cache) return responseSuccess(res, JSON.parse(req.cache))
-        
+
         const user  = await User.findOne({accountNumber : req.params.id}).select({password:0});
 
         if(!user) throw new Error('User not found')
