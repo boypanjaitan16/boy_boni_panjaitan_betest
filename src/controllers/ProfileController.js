@@ -5,9 +5,9 @@ const User = require('../models/User')
 
 const redis     = require('redis')
 const client    = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST, {
-    password: process.env.REDIS_PASSWORD,
-    db  : process.env.REDIS_DB
+    password    : process.env.REDIS_PASSWORD
 })
+// client.auth(process.env.REDIS_PASSWORD)
 
 exports.detail = async (req, res) => {
     if(req.cache) return responseSuccess(res, JSON.parse(req.cache))

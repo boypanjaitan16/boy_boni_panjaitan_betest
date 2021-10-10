@@ -1,5 +1,8 @@
 const redis     = require('redis')
-const client    = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST)
+const client    = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST, {
+    password    : process.env.REDIS_PASSWORD
+})
+// client.auth(process.env.REDIS_PASSWORD)
 
 exports.cacheAllUsers = (req, res, next) => {
     client.get('all_users', (err, data) => {
